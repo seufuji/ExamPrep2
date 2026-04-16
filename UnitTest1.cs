@@ -180,7 +180,7 @@ namespace ExamPrep2
         [Order(7)]
         [Test]
 
-        public void TrytoDeleteNonExistingFood_ShouldReturnNotFound()
+        public void TrytoDeleteNonExistingFood_ShouldReturnBadRequest()
         {
             var nonExistingId = Guid.NewGuid().ToString();
 
@@ -188,12 +188,12 @@ namespace ExamPrep2
 
             var response = this.client.Execute(request);
 
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
 
 
             var apiResponse = JsonSerializer.Deserialize<ApiResponseDTO>(response.Content);
 
-            Assert.That(apiResponse.Msg, Is.EqualTo("No food revues..."));
+            Assert.That(apiResponse.Msg, Is.EqualTo("Unable to delete this food revue!"));
 
         }
 
